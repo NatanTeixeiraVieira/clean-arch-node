@@ -41,6 +41,18 @@ export class Product extends Entity<ProductProps> {
     this.props.stock += stock;
   }
 
+  decreaseStock(stock: number): void {
+    if(stock <= 0) {
+      throw new Error('Stock must be grater than 0');
+    }
+
+    if(this.props.stock - stock < 0) {
+      throw new Error('Insufficient stock');
+    }
+
+    this.props.stock -= stock;
+  }
+
   private static validate(props: ProductProps): void {
     if(props.price > 5000) {
       throw new Error('Price cannot be greater than 5000');
