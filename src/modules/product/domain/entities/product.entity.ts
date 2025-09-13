@@ -4,6 +4,7 @@ export type ProductProps = {
   id: string;
   name: string;
   price: number;
+  stock: number;
   description?: string;
   createdAt: Date;
   updatedAt: Date;
@@ -22,6 +23,7 @@ export class Product extends Entity<ProductProps> {
       name: createProps.name,
       price: createProps.price,
       description: createProps.description,
+      stock: 0,
       createdAt: new Date(),
       updatedAt: new Date(),
     }
@@ -29,6 +31,14 @@ export class Product extends Entity<ProductProps> {
     Product.validate(props);
 
     return new Product(props)
+  }
+
+  increaseStock(stock: number): void {
+    if(stock <= 0) {
+      throw new Error('Stock must be grater than 0');
+    }
+
+    this.props.stock += stock;
   }
 
   private static validate(props: ProductProps): void {
