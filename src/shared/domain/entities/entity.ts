@@ -1,5 +1,5 @@
 export abstract class Entity<Props = Object> {
-  constructor(protected readonly props: Props) {}
+  constructor(protected props: Props) {}
 
   toJSON(): Props {
     return {...this.props}

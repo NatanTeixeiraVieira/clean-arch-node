@@ -8,7 +8,7 @@ export type Input = {
 
 export type Output = void;
 
-export class DecreaseStockUseCase implements UseCase<Input, Output> {
+export class DecreaseProductStockUseCase implements UseCase<Input, Output> {
   constructor(private readonly productRepository: ProductRepository) {}
 
   async execute(input: Input): Promise<void> {

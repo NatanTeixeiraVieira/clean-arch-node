@@ -16,6 +16,12 @@ type CreateProductProps = {
   description?: string;
 }
 
+type UpdateProductProps = {
+  name: string;
+  price: number;
+  description?: string;
+}
+
 export class Product extends Entity<ProductProps> {
   static create(createProps: CreateProductProps): Product {
     const props: ProductProps = {
@@ -51,6 +57,19 @@ export class Product extends Entity<ProductProps> {
     }
 
     this.props.stock -= stock;
+  }
+
+  update(updateProps: UpdateProductProps): void {
+    const props: ProductProps = {
+      ...this.props,
+      name: updateProps.name,
+      price: updateProps.price,
+      description: updateProps.description,
+    };
+
+    Product.validate(props);
+
+    this.props = props;
   }
 
   private static validate(props: ProductProps): void {
