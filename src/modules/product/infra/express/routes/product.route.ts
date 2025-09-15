@@ -3,6 +3,11 @@ import { ProductFactory } from "../../factories/product.factory";
 
 const { productController } = ProductFactory.create();
 
+router.get('/v1/product', async (_, res) => {
+  const presenter = await productController.findAllProducts()
+  return res.status(200).json(presenter);
+})
+
 router.post('/v1/product', async (req, res) => {
   const presenter = await productController.createProduct(req.body)
   return res.status(201).json(presenter);

@@ -7,14 +7,22 @@ import { DecreaseProductStockUseCase } from "../../application/usecases/decrease
 import { DecreaseStockDto } from "../dtos/decrease-stock.dto";
 import { UpdateProductUseCase } from "../../application/usecases/update-product.usecase";
 import { UpdateProductDto } from "../dtos/update-product.dto";
+import { FindAllProductsUseCase } from "../../application/usecases/find-all-products.usecase";
+import { FindAllProductsPresenter } from "../presenters/find-all-products.presenter";
 
 export class ProductController {
   constructor(
+    private readonly findAllProductsUseCase: FindAllProductsUseCase,
     private readonly createProductUseCase: CreateProductUseCase,
     private readonly increaseStockUseCase: IncreaseProductStockUseCase,
     private readonly decreaseStockUseCase: DecreaseProductStockUseCase,
     private readonly updateProductUseCase: UpdateProductUseCase,
   ) {}
+
+  async findAllProducts(): Promise<FindAllProductsPresenter> {
+    const output = await this.findAllProductsUseCase.execute();
+    return new FindAllProductsPresenter(output);
+  }
 
   async createProduct(createProductDto: CreateProductDto): Promise<CreateProductPresenter> {
     const output = await this.createProductUseCase.execute(createProductDto);
